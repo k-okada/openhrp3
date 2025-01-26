@@ -61,7 +61,7 @@ namespace {
     NameToInterfaceMap customizerRepository;
     bool pluginLoadingFunctionsCalled = false;
 
-    inline string toNativePathString(const filesystem::path& path) {
+    inline string toNativePathString(const boost::filesystem::path& path) {
 #if (BOOST_VERSION <= 103301)
         return path.native_file_string();
 #elif (BOOST_VERSION < 104600)
@@ -175,21 +175,21 @@ int hrp::loadBodyCustomizers(const std::string pathString, BodyInterface* bodyIn
         }
     }
 #elif (BOOST_VERSION >= 105000)
-    filesystem::path pluginPath(pathString, (void *)filesystem::native);
+    boost::filesystem::path pluginPath(pathString, (void *)boost::filesystem::native);
 	
-    if(filesystem::exists(pluginPath)){
+    if(boost::filesystem::exists(pluginPath)){
 
-        if(!filesystem::is_directory(pluginPath)){
+        if(!boost::filesystem::is_directory(pluginPath)){
             if(loadCustomizerDll(bodyInterface, toNativePathString(pluginPath))){
                 numLoaded++;
             }
         } else {
             regex pluginNamePattern(string(".+Customizer") + DLLSFX);
-            filesystem::directory_iterator end;
+            boost::filesystem::directory_iterator end;
 			
-            for(filesystem::directory_iterator it(pluginPath); it != end; ++it){
-                const filesystem::path& filepath = *it;
-                if(!filesystem::is_directory(filepath)){
+            for(boost::filesystem::directory_iterator it(pluginPath); it != end; ++it){
+                const boost::filesystem::path& filepath = *it;
+                if(!boost::filesystem::is_directory(filepath)){
                     if(regex_match(filepath.filename().string(), pluginNamePattern)){
                         if(loadCustomizerDll(bodyInterface, toNativePathString(filepath))){
                             numLoaded++;
@@ -262,8 +262,8 @@ int hrp::loadBodyCustomizers(BodyInterface* bodyInterface)
 #ifndef _WIN32
         Dl_info info;
         if(dladdr((void*)&hrp::findBodyCustomizer, &info)){
-            filesystem::path customizerPath =
-                filesystem::path(info.dli_fname).branch_path().branch_path() / OPENHRP_RELATIVE_SHARE_DIR / "customizer";
+            boost::filesystem::path customizerPath =
+                boost::filesystem::path(info.dli_fname).branch_path().branch_path() / OPENHRP_RELATIVE_SHARE_DIR / "customizer";
             numLoaded += loadBodyCustomizers(customizerPath.string(), bodyInterface);
         }
 #else

@@ -8,7 +8,7 @@ set(IDL_FILE_BASENAMES
   Controller
   ViewSimulator
   OnlineViewer
-  ClockGenerator
+  # ClockGenerator
 )
 
 if (NOT QNXNTO)

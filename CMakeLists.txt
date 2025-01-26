@@ -273,7 +273,7 @@ set(OMNIORB_CFLAGS ${OMNIORB_CFLAGS} CACHE STRING "Compile flags for omniORB")
 
 
 # OpenRTM-aist
-find_package(OpenRTM REQUIRED)
+find_package(OpenRTM)
 if(EXISTS "${OPENRTM_DIR}/include/openrtm-1.1/rtm/RTObjectStateMachine.h")
 add_definitions(-DOPENRTM_VERSION_TRUNK)
 endif()
@@ -361,7 +361,7 @@ else(COMPILE_JAVA_STUFF)
   message(STATUS "Not support Java")
 endif(COMPILE_JAVA_STUFF)
 
-option(COMPILE_PYTHON_STUFF "Compile python stuff" ON)
+option(COMPILE_PYTHON_STUFF "Compile python stuff" OFF)
 
 # jython
 if(COMPILE_JAVA_STUFF)
@@ -540,7 +540,7 @@ if(COMPILE_JAVA_STUFF)
   add_subdirectory(java)
 endif()
 
-option(COMPILE_SAMPLES "Compile sample materials" ON)
+option(COMPILE_SAMPLES "Compile sample materials" OFF)
 if(COMPILE_SAMPLES)
   add_subdirectory(sample)
 endif()

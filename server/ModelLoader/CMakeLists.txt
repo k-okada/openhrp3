@@ -119,7 +119,7 @@ target_link_libraries(export-vrml
   hrpCorbaStubSkel-${OPENHRP_LIBRARY_VERSION}
   )
 
-if(LIBXML2_FOUND)
+if(LIBXML2_FOUND AND FALSE)
   if( COLLADA_DOM_FOUND )
     set(sources4 ${sources4} BodyInfoCollada_impl.cpp)
   endif()

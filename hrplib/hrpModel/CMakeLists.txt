@@ -1,4 +1,3 @@
-
 configure_file(Config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Config.h)
 
 set(sources

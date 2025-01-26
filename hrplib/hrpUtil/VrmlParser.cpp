@@ -468,7 +468,7 @@ void VrmlParser::load(const string& filename)
 
 void VrmlParserImpl::load(const string& filename)
 {
-    filesystem::path localPath(filename);
+    boost::filesystem::path localPath(filename);
     localPath.normalize();
 
 #if (BOOST_VERSION < 104600)
@@ -764,17 +764,17 @@ VrmlNodePtr VrmlParserImpl::readInlineNode(VrmlNodeCategory nodeCategory)
 
 VrmlNodePtr VrmlParserImpl::newInlineSource(string& io_filename)
 {
-    filesystem::path localPath;
+    boost::filesystem::path localPath;
     string chkFile("");
     if( isFileProtocol( io_filename ) )
     {
-        localPath = filesystem::path( deleteURLScheme(io_filename) );
+        localPath = boost::filesystem::path( deleteURLScheme(io_filename) );
 
         localPath.normalize();
         // Relative path check & translate to absolute path 
         if ( ! exists(localPath) ){
 
-            filesystem::path parentPath( scanner->filename );
+            boost::filesystem::path parentPath( scanner->filename );
 #if BOOST_VERSION < 103600
             localPath = parentPath.branch_path() / localPath;
 #else
